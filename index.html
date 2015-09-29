@@ -9,18 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>Welcome - Palmadb tools</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
-    </style>
+    <link href="css/heroic-features.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,16 +39,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">PALAMD</a>
+                <a class="navbar-brand" href="#">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Upload</a>
-                    </li>
-                    <li>
                         <a href="#">About</a>
+                    </li>
+                    <li class="dropdown">
+                        <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+                            aria-expanded="false">
+                            Tools
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="drop1">
+                            <li><a href="index.html">Upload SNP</a></li>
+                            <li><a href="index.html">Upload Primer</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="index.html">Search</a></li>
+                        </ul>
+                    <li>
+                        <a href="#">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -65,22 +72,92 @@
     <!-- Page Content -->
     <div class="container">
 
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>Welcome to PALMADB tools</h1>
+            <p>some tool who can help you with something. LOL. </p>
+        </header>
+
+        <hr>
+
+        <!-- Title -->
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1>PALAMD Search</h1>
-                <div>
-                    <form method="POST" action="#">
-                        <input name="yeah" type="text">
-                    </form>
-                </div>
+            <div class="col-lg-12">
+                <h3>Our Tools</h3>
             </div>
         </div>
         <!-- /.row -->
 
+        <!-- Page Features -->
+        <div class="row text-center">
+
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <!--<img src="http://placehold.it/800x500" alt="">-->
+                    <div class="caption">
+                        <h1>SNP</h1>
+                        <p>
+                            <form method="POST" enctype="multipart/form-data" action="processSNP.php">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Input your snp file here</label>
+                                    <input class="form-control" type="file" id="exampleInputFile" name="snp">
+                                </div> 
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <!--<img src="http://placehold.it/800x500" alt="">-->
+                    <div class="caption">
+                        <h1>PRIMER</h1>
+                        <p>
+                            <form method="POST" enctype="multipart/form-data" action="processPRIMER.php">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Input your primer file here</label>
+                                    <input class="form-control" type="file" id="exampleInputFile" name="primer">
+                                </div> 
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <!--<img src="http://placehold.it/800x500" alt="">-->
+                    <div class="caption">
+                        <h1>SEARCH</h1>
+                        <label for="exampleInputFile">Search something after you just upload your SNP and primer.</label>
+                        <p>
+                            <a href="search.php" class="btn btn-primary">Search</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
     </div>
     <!-- /.container -->
 
-    <!-- jQuery Version 1.11.1 -->
+    <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
