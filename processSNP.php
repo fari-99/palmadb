@@ -183,7 +183,7 @@
                 <?php
                     $total_data = $baris_snp - 1;
                     echo "<div class='alert alert-success' role='alert'>Sukses upload " . $sukses_snp . " dari " . $total_data . "</div>";
-                    echo "<a class='btn btn-primary btn-lg' href='resultSNP.php?ID='". $ID ." role=button>See Result</a>"
+                    echo "<a class='btn btn-primary btn-lg' href=\"resultSNP.php?ID='". $ID ."\" role=button>See Result</a>"
                 ?>
             </div>
         </div>

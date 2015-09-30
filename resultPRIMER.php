@@ -4,7 +4,7 @@
     $connect = database_connect();
     $ID = $_GET["ID"];
 
-    $query = "SELECT * FROM `snp` WHERE `snp_id` = " . $ID;
+    $query = "SELECT * FROM `primer` WHERE `primer_id` = " . $ID;
     $hasil = mysql_query($query);
     $jmlData = mysql_num_rows($hasil);
 ?>
@@ -91,40 +91,27 @@
                 <table class="table table-hover">
                     <tr>
                         <th>No</th>
-                        <th>Sample ID</th>
-                        <th>CHR</th>
-                        <th>POS</th>
-                        <th>REf</th>
-                        <th>ALT</th>
-                        <th>INDEL</th>
-                        <th>Flanking Left</th>
-                        <th>Flanking Right</th>
-                        <th>GENE</th>
-                        <th>Description</th>
+                        <th>PRIMER</th>
+                        <th>FRONT</th>
+                        <th>REVERSE</th>
                     </tr>
                 <?php
                     $paging     = new Paging;
                     $batas      = 10;
                     $posisi     = $paging->cariPosisi($batas);
-                    $query      = 'SELECT * FROM `snp` where `snp_id` = ' . $ID . ' LIMIT ' . $posisi . ',' . $batas;
+                    $query      = 'SELECT * FROM `primer` where `primer_id` = ' . $ID . ' LIMIT ' . $posisi . ',' . $batas;
+                    //echo $query; break;
                     $tampil     = mysql_query($query);
 
                     $no = $posisi + 1;
                     while ($r=mysql_fetch_array($tampil)){
-                        //echo strlen($r['flanking_left']); break;
+                        //echo strlen($r['front']); break;
                         echo '
                             <tr>
                                 <td>'. $no .'</td>
-                                <td>'. $r['sample_id'] .'</td>
-                                <td>'. $r['chr'] .'</td>
-                                <td>'. $r['pos'] .'</td>
-                                <td>'. $r['ref'] .'</td>
-                                <td>'. $r['alt'] .'</td>
-                                <td>'. $r['indel'] .'</td>
-                                <td>'. $r['flanking_left'] .'</td>
-                                <td>'. $r['flanking_right'] .'</td>
-                                <td>'. $r['gene'] .'</td>
-                                <td>'. $r['description'] .'</td>
+                                <td>'. $r['primer'] .'</td>
+                                <td>'. $r['front'] .'</td>
+                                <td>'. $r['reverse'] .'</td>
                             </tr>
                         ';
                         $no++;

@@ -1,3 +1,71 @@
+<?php
+    include "excel_reader2.php";
+    include "function.php";
+    ini_set('max_execution_time', 300);
+    error_reporting(0);
+    $connect = database_connect();
+    $ID = time();
+
+    $data_primer    = new Spreadsheet_Excel_Reader($_FILES['primer']['tmp_name']);
+    
+    $baris_primer   = $data_primer->rowcount($sheet_index=0);
+    $kolom_primer       = $data_primer->colcount($sheet_index=0);
+    
+    $sukses_primer  = 0;
+    $gagal_primer   = 0;
+    
+    //untuk file snp, mengetahui letak cell colom apa aja
+    for($i = 1; $i <= $kolom_primer; $i++)
+    {
+        $nama = $data_primer -> val(1,$i);
+        $nama = strtolower($nama);
+        //echo $nama . "<br>";
+        if ($nama == 'primer') {
+            $primer = $i;
+        }
+        if ($nama = 'f') {
+            $front = $i;
+        }
+        if ($nama = 'r') {
+            $reverse = $i;
+        }
+    }
+
+    /*
+        echo $primer  . '<br>';
+        echo $front  . '<br>';
+        echo $reverse  . '<br>';
+    // */
+
+    for($j = 2; $j <= $baris_primer; $j++)
+    {
+        $primer_tabel = $data_primer->val($j,$primer);
+        $front_tabel = $data_primer->val($j,$front);
+        $reverse_tabel = $data_primer->val($j,$reverse);
+
+        $query =    "INSERT INTO `primer`(`primer_id`, `primer`, `front`, `reverse`) 
+                    VALUES (" . $ID . ",". "\"" . $primer_tabel . "\",\"" . $front_tabel . "\",\"" . $reverse_tabel . 
+                    "\")";
+        //echo $query . "<br>"; break;
+        
+        $hasil = mysql_query($query);
+        //*
+        //echo mysql_error();
+        if($hasil)
+        {
+            $sukses_primer++;
+        }
+        else
+        {
+            $gagal_primer++;
+            echo "<div class='alert alert-warning' role='alert'> Row nomor " . $j . " Tidak bisa terupload </div>";
+        }
+        //echo $sukses_snp . "<br>";
+        //echo $gagal_snp . "<br>";
+        //break;
+        //*/
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +77,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PALMADB - SNP</title>
+    <title>PALMADB - Upload SNP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +112,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="index.html">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -52,9 +120,18 @@
                     <li>
                         <a href="#">About</a>
                     </li>
-                    <li>
-                        <a href="#">Tools</a>
-                    </li>
+                    <li class="dropdown">
+                        <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+                            aria-expanded="false">
+                            Tools
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="drop1">
+                            <li><a href="uploadSNP.php">Upload SNP</a></li>
+                            <li><a href="uploadPRIMER.php">Upload Primer</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Search</a></li>
+                        </ul>
                     <li>
                         <a href="#">Contact</a>
                     </li>
@@ -64,24 +141,25 @@
         </div>
         <!-- /.container -->
     </nav>
-
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>A Bootstrap Starter Template</h1>
-                <p class="lead">Complete with pre-defined file paths that you won't have to change!</p>
-                <ul class="list-unstyled">
-                    <li>Bootstrap v3.3.1</li>
-                    <li>jQuery v1.11.1</li>
-                </ul>
+                <h1>Hasil Upload</h1>
+                <?php
+                    $total_data = $baris_primer - 1;
+                    echo "<div class='alert alert-success' role='alert'>Sukses upload " . $sukses_primer . " dari " . $total_data . "</div>";
+                    echo "<a class='btn btn-primary btn-lg' href=\"resultPRIMER.php?ID=". $ID ."\" role=button>See Result</a>"
+                ?>
             </div>
         </div>
         <!-- /.row -->
-
+    <table class="table table-hover">
+        
+    </table>
     </div>
     <!-- /.container -->
+
 
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>

@@ -1,13 +1,3 @@
-<?php
-    include "function.php";
-    error_reporting(0);
-    $connect = database_connect();
-    $ID = $_GET["ID"];
-
-    $query = "SELECT * FROM `snp` WHERE `snp_id` = " . $ID;
-    $hasil = mysql_query($query);
-    $jmlData = mysql_num_rows($hasil);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PALMADB - Result SNP</title>
+    <title>PALMADB - Upload SNP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -83,65 +73,30 @@
         </div>
         <!-- /.container -->
     </nav>
+
     <!-- Page Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>Hasil Upload ID <?php echo $ID;?> </h1>
-                <table class="table table-hover">
-                    <tr>
-                        <th>No</th>
-                        <th>Sample ID</th>
-                        <th>CHR</th>
-                        <th>POS</th>
-                        <th>REf</th>
-                        <th>ALT</th>
-                        <th>INDEL</th>
-                        <th>Flanking Left</th>
-                        <th>Flanking Right</th>
-                        <th>GENE</th>
-                        <th>Description</th>
-                    </tr>
-                <?php
-                    $paging     = new Paging;
-                    $batas      = 10;
-                    $posisi     = $paging->cariPosisi($batas);
-                    $query      = 'SELECT * FROM `snp` where `snp_id` = ' . $ID . ' LIMIT ' . $posisi . ',' . $batas;
-                    $tampil     = mysql_query($query);
-
-                    $no = $posisi + 1;
-                    while ($r=mysql_fetch_array($tampil)){
-                        //echo strlen($r['flanking_left']); break;
-                        echo '
-                            <tr>
-                                <td>'. $no .'</td>
-                                <td>'. $r['sample_id'] .'</td>
-                                <td>'. $r['chr'] .'</td>
-                                <td>'. $r['pos'] .'</td>
-                                <td>'. $r['ref'] .'</td>
-                                <td>'. $r['alt'] .'</td>
-                                <td>'. $r['indel'] .'</td>
-                                <td>'. $r['flanking_left'] .'</td>
-                                <td>'. $r['flanking_right'] .'</td>
-                                <td>'. $r['gene'] .'</td>
-                                <td>'. $r['description'] .'</td>
-                            </tr>
-                        ';
-                        $no++;
-                    }
-                ?>
-                </table>
+                <h1>UPLOAD FILE SNP</h1>
+                <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="processPRIMER.php">
+                    <div class="form-group form-group-lg">
+                        <div class="row">
+                            <div class=".col-md-6">
+                                <input class="form-control" type="file" name="primer">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">UPLOAD</button>
+                </form>
             </div>
         </div>
         <!-- /.row -->
+    <table class="table table-hover">
+        
+    </table>
     </div>
     <!-- /.container -->
-
-    <?php
-                    $jmlHalaman = $paging->jumlahHalaman($jmlData,$batas);
-                    $linkHalaman = $paging->navHalaman($_GET['halaman'], $jmlHalaman, $ID);
-                    echo "$linkHalaman";
-    ?>
 
 
     <!-- jQuery Version 1.11.1 -->
