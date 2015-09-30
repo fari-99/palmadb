@@ -9,13 +9,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Welcome - Palmadb tools</title>
+    <title>PALMADB - Upload SNP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/heroic-features.css" rel="stylesheet">
+    <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,87 +76,30 @@
 
     <!-- Page Content -->
     <div class="container">
-
-        <!-- Jumbotron Header -->
-        <header class="jumbotron hero-spacer">
-            <h1>Welcome to PALMADB tools</h1>
-            <p>some tool who can help you with something. LOL. </p>
-        </header>
-
-        <hr>
-
-        <!-- Title -->
         <div class="row">
-            <div class="col-lg-12">
-                <h3>Our Tools</h3>
+            <div class="col-lg-12 text-center">
+                <h1>UPLOAD FILE SNP</h1>
+                <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="processSNP.php">
+                    <div class="form-group form-group-lg">
+                        <div class="row">
+                            <div class=".col-md-6">
+                                <input class="form-control" type="file" name="snp">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">UPLOAD</button>
+                </form>
             </div>
         </div>
         <!-- /.row -->
-
-        <!-- Page Features -->
-        <div class="row text-center">
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h1>SNP</h1>
-                        <p>
-                            <label for="exampleInputFile">Input your snp file here</label>
-                        </p>
-                        <p>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h1>PRIMER</h1>
-                        <p>
-                            <label for="exampleInputFile">Input your primer file here</label>
-                        </p>
-                        <p>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption">
-                        <h1>SEARCH</h1>
-                        <label for="exampleInputFile">Search something. LOL</label>
-                        <p>
-                            <a href="search.php" class="btn btn-primary">Search</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; YEAH Website 2015</p>
-                </div>
-            </div>
-        </footer>
-
+    <table class="table table-hover">
+        
+    </table>
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
+
+    <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->

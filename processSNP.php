@@ -6,26 +6,6 @@
     $connect = database_connect();
     $ID = time();
 
-    if (
-        !isset($_FILES['snp']['error']) ||
-        is_array($_FILES['snp']['error'])
-    ) {
-        throw new RuntimeException('Invalid parameters.');
-    }
-
-    // Check $_FILES['upfile']['error'] value.
-    switch ($_FILES['snp']['error']) {
-        case UPLOAD_ERR_OK:
-            break;
-        case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('No file sent.');
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-            throw new RuntimeException('Exceeded filesize limit.');
-        default:
-            throw new RuntimeException('Unknown errors.');
-    }
-
     $data_snp       = new Spreadsheet_Excel_Reader($_FILES['snp']['tmp_name']);
     
     $baris_snp      = $data_snp->rowcount($sheet_index=0);
@@ -33,13 +13,8 @@
     
     $sukses_snp     = 0;
     $gagal_snp      = 0;
-    $kode_neu[0] = "A";
-    $kode_neu[1] = "C";
-    $kode_neu[2] = "G";
-    $kode_neu[3] = "T";
-    $kode_neu[4] = "-";
     
-    //untuk file snp
+    //untuk file snp, mengetahui letak cell colom apa aja
     for($i = 1; $i <= $kolom_snp; $i++)
     {
         $nama = $data_snp -> val(1,$i);
@@ -61,9 +36,12 @@
             $description = $i;
         if($nama == 'chr')
             $chr = $i;
+        if($nama == 'sample id')
+            $sample_id = $i;
     }
 
     /*
+        echo $sample_id . '<br>';
         echo $pos . '<br>';
         echo $ref . '<br>';
         echo $alt . '<br>';
@@ -96,30 +74,32 @@
         $chr_tabel = $data_snp->val($j,$chr);
         $gene_tabel = $data_snp->val($j,$gene);
         $description_tabel = $data_snp->val($j,$description);
+        $sample_id_tabel = $data_snp->val($j,$sample_id);
 
         $query = "INSERT INTO `snp` (`sample_id`, `chr`, `pos`, `ref`, `alt`, `indel`, `flanking_left`, `flanking_right`, `snp_id`, `gene`, `description`) 
-        VALUES (" . $ID . ",\"" . $chr_tabel . "\"," . $pos_tabel . ",\"" . $ref_tabel . "\",\"" . $alt_tabel . "\"," . $indel_tabel . ",\"" . $flanking_left 
+        VALUES (" . "\"" . $sample_id_tabel . "\",\"" . $chr_tabel . "\"," . $pos_tabel . ",\"" . $ref_tabel . "\",\"" . $alt_tabel . "\"," . $indel_tabel . ",\"" . $flanking_left 
         . "\",\"" . $flanking_right . "\"," . $ID . ",\"" . $gene_tabel . "\",\"" . $description_tabel . "\")";
-        echo $query . "<br>";
-        break;
+        //echo $query . "<br>";
+        //break;
         
         $hasil = mysql_query($query);
-        //echo mysql_error();
-        
         //*
+        //echo mysql_error();
         if($hasil)
+        {
             $sukses_snp++;
+        }
         else
+        {
             $gagal_snp++;
+            echo "<div class='alert alert-warning' role='alert'> Row nomor " . $j . " Tidak bisa terupload </div>";
+        }
+        //echo $sukses_snp . "<br>";
+        //echo $gagal_snp . "<br>";
         //break;
         //*/
     }
-
-    echo "<br>" . 'sukses = ' . $sukses_snp . "<br>";
-    echo 'gagal = ' . $gagal_snp . "<br>";
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,7 +111,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PALMADB - SNP</title>
+    <title>PALMADB - Upload SNP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -174,9 +154,18 @@
                     <li>
                         <a href="#">About</a>
                     </li>
-                    <li>
-                        <a href="#">Tools</a>
-                    </li>
+                    <li class="dropdown">
+                        <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
+                            aria-expanded="false">
+                            Tools
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="drop1">
+                            <li><a href="uploadSNP.php">Upload SNP</a></li>
+                            <li><a href="uploadPRIMER.php">Upload Primer</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Search</a></li>
+                        </ul>
                     <li>
                         <a href="#">Contact</a>
                     </li>
@@ -186,24 +175,25 @@
         </div>
         <!-- /.container -->
     </nav>
-
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>A Bootstrap Starter Template</h1>
-                <p class="lead">Complete with pre-defined file paths that you won't have to change!</p>
-                <ul class="list-unstyled">
-                    <li>Bootstrap v3.3.1</li>
-                    <li>jQuery v1.11.1</li>
-                </ul>
+                <h1>Hasil Upload</h1>
+                <?php
+                    $total_data = $baris_snp - 1;
+                    echo "<div class='alert alert-success' role='alert'>Sukses upload " . $sukses_snp . " dari " . $total_data . "</div>";
+                    echo "<a class='btn btn-primary btn-lg' href='resultSNP.php?ID='". $ID ." role=button>See Result</a>"
+                ?>
             </div>
         </div>
         <!-- /.row -->
-
+    <table class="table table-hover">
+        
+    </table>
     </div>
     <!-- /.container -->
+
 
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
