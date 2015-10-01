@@ -9,7 +9,7 @@
     $data_primer    = new Spreadsheet_Excel_Reader($_FILES['primer']['tmp_name']);
     
     $baris_primer   = $data_primer->rowcount($sheet_index=0);
-    $kolom_primer       = $data_primer->colcount($sheet_index=0);
+    $kolom_primer   = $data_primer->colcount($sheet_index=0);
     
     $sukses_primer  = 0;
     $gagal_primer   = 0;
@@ -24,7 +24,7 @@
             $primer = $i;
         }
         if ($nama = 'f') {
-            $front = $i;
+            $forward = $i;
         }
         if ($nama = 'r') {
             $reverse = $i;
@@ -33,18 +33,18 @@
 
     /*
         echo $primer  . '<br>';
-        echo $front  . '<br>';
+        echo $forward  . '<br>';
         echo $reverse  . '<br>';
     // */
 
     for($j = 2; $j <= $baris_primer; $j++)
     {
         $primer_tabel = $data_primer->val($j,$primer);
-        $front_tabel = $data_primer->val($j,$front);
-        $reverse_tabel = $data_primer->val($j,$reverse);
+        $forward_tabel = strtolower($data_primer->val($j,$forward));
+        $reverse_tabel = strtolower($data_primer->val($j,$reverse));
 
-        $query =    "INSERT INTO `primer`(`primer_id`, `primer`, `front`, `reverse`) 
-                    VALUES (" . $ID . ",". "\"" . $primer_tabel . "\",\"" . $front_tabel . "\",\"" . $reverse_tabel . 
+        $query =    "INSERT INTO `primer`(`primer_id`, `primer`, `forward`, `reverse`) 
+                    VALUES (" . $ID . ",". "\"" . $primer_tabel . "\",\"" . $forward_tabel . "\",\"" . $reverse_tabel . 
                     "\")";
         //echo $query . "<br>"; break;
         

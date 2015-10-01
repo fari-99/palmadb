@@ -92,7 +92,7 @@
                     <tr>
                         <th>No</th>
                         <th>PRIMER</th>
-                        <th>FRONT</th>
+                        <th>forward</th>
                         <th>REVERSE</th>
                     </tr>
                 <?php
@@ -100,18 +100,19 @@
                     $batas      = 10;
                     $posisi     = $paging->cariPosisi($batas);
                     $query      = 'SELECT * FROM `primer` where `primer_id` = ' . $ID . ' LIMIT ' . $posisi . ',' . $batas;
+                    $jmlData    = mysql_num_rows($tampil);
                     //echo $query; break;
                     $tampil     = mysql_query($query);
 
                     $no = $posisi + 1;
                     while ($r=mysql_fetch_array($tampil)){
-                        //echo strlen($r['front']); break;
+                        //echo strlen($r['forward']); break;
                         echo '
                             <tr>
                                 <td>'. $no .'</td>
                                 <td>'. $r['primer'] .'</td>
-                                <td>'. $r['front'] .'</td>
-                                <td>'. $r['reverse'] .'</td>
+                                <td>'. strtoupper($r['forward']) .'</td>
+                                <td>'. strtoupper($r['reverse']) .'</td>
                             </tr>
                         ';
                         $no++;

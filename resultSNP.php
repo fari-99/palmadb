@@ -121,8 +121,8 @@
                                 <td>'. $r['ref'] .'</td>
                                 <td>'. $r['alt'] .'</td>
                                 <td>'. $r['indel'] .'</td>
-                                <td>'. $r['flanking_left'] .'</td>
-                                <td>'. $r['flanking_right'] .'</td>
+                                <td>'. strtoupper($r['flanking_left']) .'</td>
+                                <td>'. strtoupper($r['flanking_right']) .'</td>
                                 <td>'. $r['gene'] .'</td>
                                 <td>'. $r['description'] .'</td>
                             </tr>

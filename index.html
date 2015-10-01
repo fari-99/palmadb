@@ -39,7 +39,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="index.html">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -57,7 +57,8 @@
                             <li><a href="uploadSNP.php">Upload SNP</a></li>
                             <li><a href="uploadPRIMER.php">Upload Primer</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Search</a></li>
+                            <li><a href="searchPRIMER.php">Search Primer</a></li>
+                            <li><a href="searchSNP.php">Search SNP</a></li>
                         </ul>
                     <li>
                         <a href="#">Contact</a>
@@ -68,6 +69,12 @@
         </div>
         <!-- /.container -->
     </nav>
+
+    <?php
+                    $jmlHalaman = $paging->jumlahHalaman($jmlData,$batas);
+                    $linkHalaman = $paging->navHalaman($_GET['halaman'], $jmlHalaman, $ID);
+                    echo "$linkHalaman";
+    ?>
 
     <!-- Page Content -->
     <div class="container">
@@ -128,7 +135,7 @@
                         <h1>SEARCH</h1>
                         <label for="exampleInputFile">Search something. LOL</label>
                         <p>
-                            <a href="search.php" class="btn btn-primary">Search</a>
+                            <a href="searchSNP.php" class="btn btn-primary">Search SNP</a> <a href="searchPRIMER.php" class="btn btn-primary">Search PRIMER</a>
                         </p>
                     </div>
                 </div>

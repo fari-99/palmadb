@@ -1,7 +1,7 @@
 <?php
     include "excel_reader2.php";
     include "function.php";
-    ini_set('max_execution_time', 300);
+    ini_set('max_execution_time', 3000);
     error_reporting(0);
     $connect = database_connect();
     $ID = time();
@@ -59,7 +59,7 @@
         $alt_tabel = $data_snp->val($j,$alt);
         $indel_tabel = $data_snp->val($j,$indel);
             if($indel_tabel == '.') $indel_tabel = 0;
-        $flanking_tabel = $data_snp->val($j,$flanking);
+        $flanking_tabel = strtolower($data_snp->val($j,$flanking));
         
         $keyword1 = explode("[", $flanking_tabel);
         $flanking_left = $keyword1[0];
@@ -146,7 +146,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" href="index.html">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -183,7 +183,7 @@
                 <?php
                     $total_data = $baris_snp - 1;
                     echo "<div class='alert alert-success' role='alert'>Sukses upload " . $sukses_snp . " dari " . $total_data . "</div>";
-                    echo "<a class='btn btn-primary btn-lg' href=\"resultSNP.php?ID='". $ID ."\" role=button>See Result</a>"
+                    echo "<a class='btn btn-primary btn-lg' href=\"resultSNP.php?ID=". $ID ."\" role=button>See Result</a>"
                 ?>
             </div>
         </div>
