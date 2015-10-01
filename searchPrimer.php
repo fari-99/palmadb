@@ -2,11 +2,6 @@
     include "function.php";
     error_reporting(0);
     $connect = database_connect();
-    $ID = $_GET["ID"];
-
-    $query = "SELECT * FROM `snp` WHERE `snp_id` = " . $ID;
-    $hasil = mysql_query($query);
-    $jmlData = mysql_num_rows($hasil);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,16 +85,29 @@
             <div class="col-sm-12">
                 <h1 class="text-center">Search Primer</h1>
                 <form class="form-horizontal" action="#" method="GET">
-                    <div class="form-group">
-                        <label for="primerSearch" class="col-sm-2 control-label">Primer Contain</label>
-                        <div class="col-sm-4">
+                    <?php
+                        if(empty($_GET['primerSearch']) && $_GET['submit']=="Submit"){
+                            echo "<div class='form-group has-warning'>
+                                    <label for='primerSearch' class='col-sm-2 control-label'>Primer Contain</label>";
+                        }
+                        else{
+                            echo "<div class='form-group'>
+                                    <label for='primerSearch' class='col-sm-2 control-label'>Primer Contain</label>";
+                        }
+                    ?>
+                        <div class="col-sm-4 ">
                             <?php
                             $input = "<input type='text' class='form-control' id='primerSearch' name='primerSearch' placeholder='";
-                                if(!empty($_GET['primerSearch']))
+                                if(!empty($_GET['primerSearch']) && $_GET['submit']=='Submit'){
                                     $input .= $_GET['primerSearch'];
-                                else
+                                    $input .= "'>";
+                                }
+                                elseif(empty($_GET['primerSearch']) && $_GET['submit']=="Submit"){
                                     $input .= "Ex : acgtgt";
-                            $input .= "'>";
+                                    $input .= "'> <span class='label label-warning'>Tolong isi kotak ini</span>";
+                                }
+                                else
+                                    $input .= "Ex : acgtgt'>";
                             echo $input;
                             ?>
                         </div>
@@ -128,7 +136,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            <input class="btn btn-primary" type="submit" name="submit" value="Submit">
                         </div>
                     </div>
                 </form>
@@ -183,15 +191,13 @@
         ?>
             </table>
         <?php
+                $jmlHalaman = $paging->jumlahHalaman($jmlData,$batas);
+                $linkHalaman = $paging->navHalamanSearch($_GET['halaman'], $jmlHalaman, $_GET['optionsRadios'], $_GET['primerSearch']);
+                echo "$linkHalaman";
         }
         ?>
     </div>
     <!-- /.container -->
-    <?php
-                    $jmlHalaman = $paging->jumlahHalaman($jmlData,$batas);
-                    $linkHalaman = $paging->navHalamanSearch($_GET['halaman'], $jmlHalaman, $_GET['optionsRadios'], $_GET['primerSearch']);
-                    echo "$linkHalaman";
-    ?>
 
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>

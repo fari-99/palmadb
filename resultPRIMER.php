@@ -100,7 +100,6 @@
                     $batas      = 10;
                     $posisi     = $paging->cariPosisi($batas);
                     $query      = 'SELECT * FROM `primer` where `primer_id` = ' . $ID . ' LIMIT ' . $posisi . ',' . $batas;
-                    $jmlData    = mysql_num_rows($tampil);
                     //echo $query; break;
                     $tampil     = mysql_query($query);
 
