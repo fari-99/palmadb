@@ -131,25 +131,31 @@
                                     $query = "SELECT DISTINCT `pos` FROM `snp` ORDER BY `pos` ASC LIMIT 0,1";
                                     $minimumPos = mysql_query($query);
                                     $r=mysql_fetch_array($minimumPos);
-                                    echo '<input type="text" class="form-control" name="posStart" id="posStart" placeholder="Minimum Pos = '.$r['pos'].'">';
+                                    if(empty($_POST['posStart']))
+                                        echo '<input type="text" class="form-control" name="posStart" id="posStart" placeholder="Minimum Pos = '.$r['pos'].'">';
+                                    else
+                                        echo '<input type="text" class="form-control" name="posStart" id="posStart" placeholder="'.$_POST['posStart'].'">';
                                 ?>                                
                             </div>
                     </div>
                     <div class="form-group">
-                        <label for="posStart" class="col-sm-1 control-label">End</label>
+                        <label for="posEnd" class="col-sm-1 control-label">End</label>
                             <div class="col-sm-3">
                                 <?php
                                     $query = "SELECT DISTINCT `pos` FROM `snp` ORDER BY `pos` DESC LIMIT 0,1";
                                     $minimumPos = mysql_query($query);
                                     $r=mysql_fetch_array($minimumPos);
-                                    echo '<input type="text" class="form-control" name="posEnd" id="posStart" placeholder="Maximum Pos = '.$r['pos'].'">';
+                                    if(empty($_POST['posEnd']))
+                                        echo '<input type="text" class="form-control" name="posEnd" id="posEnd" placeholder="Maximum Pos = '.$r['pos'].'">';
+                                    else
+                                        echo '<input type="text" class="form-control" name="posEnd" id="posEnd" placeholder="'.$_POST['posEnd'].'">';
                                 ?>                                
                             </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-1 col-sm-3">
                             <a class="btn btn-info" href="advancedSearchSNP.php" role="button">Advanced Search</a>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input class="btn btn-primary" type="submit" name="submit" value="Submit">
                         </div>
                     </div>
                 </form>

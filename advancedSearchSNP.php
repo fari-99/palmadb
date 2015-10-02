@@ -131,24 +131,57 @@
                                     $query = "SELECT DISTINCT `pos` FROM `snp` ORDER BY `pos` ASC LIMIT 0,1";
                                     $minimumPos = mysql_query($query);
                                     $r=mysql_fetch_array($minimumPos);
-                                    echo '<input type="text" class="form-control" name="posStart" id="posStart" placeholder="Minimum Pos = '.$r['pos'].'">';
+                                    echo "<input type='text' class='form-control' name='posStart' id='posStart' placeholder='Minimum Pos = ".$r['pos']."'>";
                                 ?>                                
                             </div>
                     </div>
                     <div class="form-group">
-                        <label for="posStart" class="col-sm-1 control-label">End</label>
+                        <label for="posEnd" class="col-sm-1 control-label">End</label>
                             <div class="col-sm-3">
                                 <?php
                                     $query = "SELECT DISTINCT `pos` FROM `snp` ORDER BY `pos` DESC LIMIT 0,1";
                                     $minimumPos = mysql_query($query);
                                     $r=mysql_fetch_array($minimumPos);
-                                    echo '<input type="text" class="form-control" name="posEnd" id="posStart" placeholder="Maximum Pos = '.$r['pos'].'">';
+                                    echo "<input type='text' class='form-control' name='posEnd' id='posEnd' placeholder='Maximum Pos = ".$r['pos']."'>";
                                 ?>                                
                             </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <label for="ref" class="col-sm-1 control-label">Referensi</label>
+                            <div class="col-sm-3">
+                                <?php
+                                    if(empty($_POST['ref']))
+                                        echo '<input type="text" class="form-control" name="ref" id="ref" placeholder="Ex : C">';
+                                    else
+                                        echo '<input type="text" class="form-control" name="ref" id="ref" placeholder="'.$_POST['ref'].'">';
+                                ?>                                
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="alt" class="col-sm-1 control-label">Alternative</label>
+                            <div class="col-sm-3">
+                                <?php
+                                    if(empty($_POST['alt']))
+                                        echo '<input type="text" class="form-control" name="alt" id="alt" placeholder="Ex : G">';
+                                    else
+                                        echo '<input type="text" class="form-control" name="alt" id="alt" placeholder="'.$_POST['alt'].'">';
+                                ?>                                
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="indel" class="col-sm-1 control-label">Indel</label>
+                            <div class="col-sm-3">
+                                <label class='checkbox-inline'>
+                                    <input type='checkbox' id='indel' name='indel0' value='0' <?php if(isset($_POST['indel0'])) echo 'checked';?> > 0
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="indel" name="indel1" value="1" <?php if(isset($_POST['indel1'])) echo 'checked';?> > 1
+                                </label>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <button type="submit" value="1" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
