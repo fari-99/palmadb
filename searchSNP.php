@@ -162,7 +162,70 @@
             </div>
         </div>
         <!-- /.row -->
-    </div>
+        <?php
+            if($_POST['submit'] == "Submit"){
+                $query = "SELECT * FROM `snp` WHERE ";
+                if($_POST['dataID'] != "All")
+                    $query .= "`snp_id` = '" . $_POST['dataID'] . "' AND ";
+
+                if($_POST['chromosom'] != "All")
+                    $query .= "`chr` = '" . $_POST['chromosom'] . "' AND ";
+
+                if(!empty($_POST['posStart'] && !empty($_POST['posEnd'])))
+                    $query .= "`pos` BETWEEN " . $_POST['posStart'] . " AND " . $_POST['posEnd'];
+                elseif (!empty($_POST['posStart'])) {
+                    $query .= "`pos` >= " . $_POST['posStart'];
+                }
+                elseif (!empty($_POST['posEnd'])) {
+                    $query .= "`pos` <= " . $_POST['posEnd'];
+                }
+        ?>        
+            <div class="col-sm-12">
+            <table class="table table-hover">
+                <tr>
+                    <th>No</th>
+                    <th>Sample ID</th>
+                    <th>CHR</th>
+                    <th>POS</th>
+                    <th>REf</th>
+                    <th>ALT</th>
+                    <th>INDEL</th>
+                    <th>Flanking Left</th>
+                    <th>Flanking Right</th>
+                    <th>GENE</th>
+                    <th>Description</th>
+                </tr>
+            <?php
+                $paging     = new Paging;
+                $batas      = 10;
+                $posisi     = $paging->cariPosisi($batas);
+                $tampil     = mysql_query($query);
+
+                $no = $posisi + 1;
+                while ($r=mysql_fetch_array($tampil)){
+                    //echo strlen($r['flanking_left']); break;
+                    echo '
+                        <tr>
+                            <td>'. $no .'</td>
+                            <td>'. $r['sample_id'] .'</td>
+                            <td>'. $r['chr'] .'</td>
+                            <td>'. $r['pos'] .'</td>
+                            <td>'. $r['ref'] .'</td>
+                            <td>'. $r['alt'] .'</td>
+                            <td>'. $r['indel'] .'</td>
+                            <td>'. strtoupper($r['flanking_left']) .'</td>
+                            <td>'. strtoupper($r['flanking_right']) .'</td>
+                            <td>'. $r['gene'] .'</td>
+                            <td>'. $r['description'] .'</td>
+                        </tr>
+                    ';
+                    $no++;
+                }
+            }
+            ?>
+            </table>
+        </div>
+        </div>
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
