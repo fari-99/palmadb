@@ -20,13 +20,13 @@
         $nama = $data_primer -> val(1,$i);
         $nama = strtolower($nama);
         //echo $nama . "<br>";
-        if ($nama == 'primer') {
+        if ($nama == 'nama_primer') {
             $primer = $i;
         }
-        if ($nama = 'f') {
+        if ($nama = 'forward_sequence') {
             $forward = $i;
         }
-        if ($nama = 'r') {
+        if ($nama = 'reverse_sequence') {
             $reverse = $i;
         }
     }

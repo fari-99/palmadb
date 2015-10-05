@@ -47,6 +47,7 @@
                             <div class=".col-md-6">
                                 <input class="form-control" type="file" name="primer">
                             </div>
+                            <a class="btn btn-default" href="template/template_primer.xls" role="button">Download contoh template import</a>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg">UPLOAD</button>
@@ -54,9 +55,6 @@
             </div>
         </div>
         <!-- /.row -->
-    <table class="table table-hover">
-        
-    </table>
     </div>
     <!-- /.container -->
 
