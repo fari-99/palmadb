@@ -36,8 +36,8 @@
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
-            <h1>Welcome to PALMADB tools</h1>
-            <p>some tool who can help you with something. LOL. </p>
+            <h1>Welcome to PALMADB</h1>
+            <p>Genomic database of palmae plants.</p>
         </header>
 
         <hr>
@@ -59,7 +59,7 @@
                     <div class="caption">
                         <h1>SNP</h1>
                         <p>
-                            <label for="exampleInputFile">Input your snp file here</label>
+                            <label for="exampleInputFile">Import your SNP file here</label>
                         </p>
                         <p>
                             <a href="uploadSNP.php" class="btn btn-primary">Submit</a>
@@ -74,7 +74,7 @@
                     <div class="caption">
                         <h1>PRIMER</h1>
                         <p>
-                            <label for="exampleInputFile">Input your primer file here</label>
+                            <label for="exampleInputFile">Import your primer file here</label>
                         </p>
                         <p>
                             <a href="uploadPRIMER.php" class="btn btn-primary">Submit</a>
@@ -88,7 +88,7 @@
                     <img src="http://placehold.it/800x500" alt="">
                     <div class="caption">
                         <h1>SEARCH</h1>
-                        <label for="exampleInputFile">Search something. LOL</label>
+                        <label for="exampleInputFile">Search SNP or primers</label>
                         <p>
                             <a href="searchSNP.php" class="btn btn-primary">Search SNP</a> <a href="searchPRIMER.php" class="btn btn-primary">Search PRIMER</a>
                         </p>
