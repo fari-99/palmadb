@@ -1,10 +1,13 @@
 <?php
+
+	require_once 'dbconn.php';
+
 	function database_connect()
 	{
-		$connect = mysql_connect("localhost","root","");
+		$connect = mysql_connect(DB_HOST, DB_USER, DB_PASS);
 		if($connect)
 		{
-			$databaseConnect = mysql_select_db("project");
+			$databaseConnect = mysql_select_db(DB_NAME);
 			if($databaseConnect)
 			{
 				return 1;
